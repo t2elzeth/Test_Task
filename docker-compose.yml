@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  db:
+    image: library/postgres:12
+    environment:
+      - POSTGRES_DB=news
+      - POSTGRES_USER=news_admin
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+  web:
+    build: .
+    #command: gunicorn Pubg_Mobile.wsgi:application --bind 0.0.0.0:8080
+    command: python3 manage.py runserver 0.0.0.0:8080
+    volumes:
+      - .:/Develops_Test_Task
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    links:
+      - db
