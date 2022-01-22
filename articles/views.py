@@ -1,12 +1,11 @@
-from django.shortcuts import render
-from .models import Post, Comment, Upvote
-from .serializers import PostSerializer, CommentSerializer, UpvoteSerializer
 from rest_framework.generics import (
     ListCreateAPIView,
     CreateAPIView,
     RetrieveUpdateDestroyAPIView,
-    ListAPIView,
 )
+
+from .models import Post, Comment, Upvote
+from .serializers import PostSerializer, CommentSerializer, UpvoteSerializer
 
 
 class CommentListView(ListCreateAPIView):

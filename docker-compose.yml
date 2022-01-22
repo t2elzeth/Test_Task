@@ -1,23 +1,46 @@
-version: '3.3'
+version: '3.8'
 
 services:
   db:
-    image: library/postgres:12
+    image: "postgres:13"
+    container_name: ${PROJECT_NAME}PostgresDatabase
     environment:
       - POSTGRES_DB=news
       - POSTGRES_USER=news_admin
       - POSTGRES_PASSWORD=password
-    ports:
-      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
   web:
     build: .
-    #command: gunicorn Pubg_Mobile.wsgi:application --bind 0.0.0.0:8080
-    command: python3 manage.py runserver 0.0.0.0:8080
+    container_name: ${PROJECT_NAME}Web
     volumes:
-      - .:/Develops_Test_Task
-    ports:
-      - "8080:8080"
+      - staticfiles:/app/staticfiles
+      - mediafiles:/app/mediafiles
+    environment:
+      DJANGO_SETTINGS_FOLDER: Develops_Test_Task
     depends_on:
       - db
-    links:
-      - db
+
+  nginx:
+    image: nginx
+    container_name: ${PROJECT_NAME}Nginx
+    ports:
+      - "8250:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - staticfiles:/app/static
+      - mediafiles:/app/media
+    depends_on:
+      - web
+
+
+volumes:
+  staticfiles:
+    name: ${PROJECT_NAME}Staticfiles
+
+  mediafiles:
+    name: ${PROJECT_NAME}Mediafiles
+
+  postgres_data:
+    name: ${PROJECT_NAME}PostgresData

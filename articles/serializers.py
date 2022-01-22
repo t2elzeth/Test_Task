@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.reverse import reverse
+
 from .models import Post, Comment, Upvote
 
 
@@ -13,7 +13,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 # Author name also can be in readonly but when auth is implemented
 class PostSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(source="comment", many=True)
+    comments = CommentSerializer(source="comment", many=True, read_only=True)
 
     class Meta:
         model = Post
@@ -25,7 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
             "amount_of_upvotes",
             "comments",
         )
-        read_only_fields = ("link", "creation_date", "amount_of_upvotes", "comments")
+        read_only_fields = ("link", "creation_date", "amount_of_upvotes")
 
 
 class UpvoteSerializer(serializers.ModelSerializer):
