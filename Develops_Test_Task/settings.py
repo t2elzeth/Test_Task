@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'PIL',
     'corsheaders',
     'articles',
+    'celery',
 
 
 ]

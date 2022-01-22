@@ -32,3 +32,4 @@ class PostDetailView(RetrieveUpdateDestroyAPIView):
 class UpvoteAPIView(CreateAPIView):
     queryset = Upvote.objects.all()
     serializer_class = UpvoteSerializer
+
