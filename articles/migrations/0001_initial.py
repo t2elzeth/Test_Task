@@ -8,37 +8,54 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('author_name', models.CharField(max_length=255)),
-                ('link', models.URLField(verbose_name='Link to post')),
-                ('creation_date', models.DateField(auto_now=True)),
-                ('amount_of_upvotes', models.IntegerField(verbose_name='upvotes count')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("author_name", models.CharField(max_length=255)),
+                ("link", models.URLField(verbose_name="Link to post")),
+                ("creation_date", models.DateField(auto_now=True)),
+                (
+                    "amount_of_upvotes",
+                    models.IntegerField(verbose_name="upvotes count"),
+                ),
             ],
-            options={
-                'verbose_name': 'Post',
-                'verbose_name_plural': 'Posts',
-            },
+            options={"verbose_name": "Post", "verbose_name_plural": "Posts"},
         ),
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('author_name', models.CharField(max_length=255)),
-                ('content', models.TextField()),
-                ('creation_date', models.DateTimeField(auto_now=True)),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='articles.post')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("author_name", models.CharField(max_length=255)),
+                ("content", models.TextField()),
+                ("creation_date", models.DateTimeField(auto_now=True)),
+                (
+                    "post",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="articles.post"
+                    ),
+                ),
             ],
-            options={
-                'verbose_name': 'Comment',
-                'verbose_name_plural': 'Comments',
-            },
+            options={"verbose_name": "Comment", "verbose_name_plural": "Comments"},
         ),
     ]
