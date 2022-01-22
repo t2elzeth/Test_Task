@@ -1,5 +1,5 @@
-from articles.models import Post
 import celery
+from articles.models import Post
 import datetime
 
 

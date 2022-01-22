@@ -31,6 +31,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'celery',
+    'redis',
+    'django_celery_results',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,10 +44,21 @@ INSTALLED_APPS = [
     'PIL',
     'corsheaders',
     'articles',
-    'celery',
-
-
 ]
+CELERY_TIMEZONE = "Asia/Bishkek"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+# celery setting.
+CELERY_CACHE_BACKEND = 'default'
+
+# django setting.
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+    }
+}
 CORS_ORIGIN_ALLOW_ALL = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
